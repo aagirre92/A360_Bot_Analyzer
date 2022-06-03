@@ -34,7 +34,7 @@ we obtain:
 **Overall complexity**
 **0.5935**
 
-#Usage
+# Usage
 As mentioned for executing this program you will need:
 
 * A360 Control Room user with appropriate permissions for exporting bots
@@ -45,9 +45,9 @@ As mentioned for executing this program you will need:
 # Dependencies
 This code has been developed using Python 3.10.1. Requirements are located in the requirements.txt file
 
-#Author
+# Author
 Andoni Aguirre Aranguren
 
-#Contact
+# Contact
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/aaguirrearanguren)
 [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/aagirre92)
