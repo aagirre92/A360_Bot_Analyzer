@@ -31,10 +31,11 @@ we obtain:
 | Delete Old Files                        | Bots\A360_Framework\Framework\Delete Old Files                         |      43 |           8 |         16 | True             | True    | True    | True       | False     | False        |     0.759333 |
 | xx - Write a NOTE within person JOURNAL | Bots\A360_Framework\Child Bots\xx - Write a NOTE within person JOURNAL |      33 |          13 |         14 | True             | False   | True    | True       | False     | False        |     0.745167 |
 
->Overall complexity
->>**0.5935**
+>**Overall complexity**
+**0.5935**
 
 #Usage
+
 As mentioned for executing this program you will need:
 
 * A360 Control Room user with appropriate permissions for exporting bots
@@ -43,10 +44,12 @@ As mentioned for executing this program you will need:
 * You only need to point to the Master/Main bot. All dependencies are automatically detected and added
 
 # Dependencies
+
 This code has been developed using Python 3.10.1. Requirements are located in the requirements.txt file
 
 #Author
+
 Andoni Aguirre Aranguren
-##Contact
+Contact
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/aaguirrearanguren)
 [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/aagirre92)
