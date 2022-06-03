@@ -16,8 +16,10 @@ class BotAnalyzer_A360:
             self._bot = json.load(f)
 
     def get_count_total_lines(self):
-        # This one also is counting disabled lines! (for support it might be neccesary to understand these too,
-        # so I keep counting)
+        """
+        Only counts actions that are NOT disabled
+        :return: Int
+        """
         commands = self._get_commands()
         return len(commands)
 

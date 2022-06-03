@@ -18,18 +18,19 @@ This program gives a first picture of a process. **However, more variables shall
 
 > For example, inserting the bot id from this url  https://aa1-app2019.iacc.epam.com/#/bots/repository/public/taskbots/3669/view
 we obtain: 
+>> **NOTE THAT ONLY ACTIVE ACTIONS ARE COUNTED (PROGRAM DOES NOT TAKE INTO CONSIDERATION DISABLED ACTIONS)**
 
 | Bot                                     | Path                                                                   |   Lines |   Variables |   Packages | Error Handling   | Loops   | Steps   | Comments   | Scripts   | Email send   |   Complexity Estimation |
 |:----------------------------------------|:-----------------------------------------------------------------------|--------:|------------:|-----------:|:-----------------|:--------|:--------|:-----------|:----------|:-------------|------------------------:|
-| Main - Signium                          | Bots\A360_Framework\Main\Main - Signium                                |     200 |          27 |         18 | True             | True    | True    | True       | False     | True         |                0.5775   |
-| xx - SAP open and login                 | Bots\A360_Framework\Child Bots\xx - SAP open and login                 |      73 |          19 |         42 | True             | False   | True    | True       | True      | True         |                0.5935   |
+| Main - Signium                          | Bots\A360_Framework\Main\Main - Signium                                |     198 |          27 |         18 | True             | True    | True    | True       | False     | True         |                0.5775   |
+| xx - SAP open and login                 | Bots\A360_Framework\Child Bots\xx - SAP open and login                 |      71 |          19 |         42 | True             | False   | True    | True       | True      | True         |                0.5895   |
 | Create Bot Folders                      | Bots\A360_Framework\Framework\Create Bot Folders                       |      60 |          15 |         26 | True             | False   | True    | True       | False     | False        |                0.344167 |
-| Process Item                            | Bots\A360_Framework\Framework\Process Item                             |      58 |          12 |         11 | True             | False   | True    | True       | False     | False        |                0.282667 |
+| Process Item                            | Bots\A360_Framework\Framework\Process Item                             |      54 |          12 |         11 | True             | False   | True    | True       | False     | False        |                0.274667 |
 | Read Config File                        | Bots\A360_Framework\Framework\Read Config File                         |      48 |           7 |         12 | True             | False   | True    | True       | False     | False        |                0.2535   |
-| End process                             | Bots\A360_Framework\Framework\End process                              |      46 |          15 |         18 | True             | True    | True    | True       | False     | True         |                0.4395   |
-| Init                                    | Bots\A360_Framework\Framework\Init                                     |      45 |           7 |         14 | True             | True    | True    | True       | False     | False        |                0.354167 |
+| End process                             | Bots\A360_Framework\Framework\End process                              |      45 |          15 |         18 | True             | True    | True    | True       | False     | True         |                0.4375   |
 | Delete Old Files                        | Bots\A360_Framework\Framework\Delete Old Files                         |      43 |           8 |         16 | True             | True    | True    | True       | False     | False        |                0.359333 |
-| xx - Write a NOTE within person JOURNAL | Bots\A360_Framework\Child Bots\xx - Write a NOTE within person JOURNAL |      33 |          13 |         14 | True             | False   | True    | True       | False     | False        |                0.245167 |
+| Init                                    | Bots\A360_Framework\Framework\Init                                     |      42 |           7 |         14 | True             | True    | True    | True       | False     | False        |                0.348167 |
+| xx - Write a NOTE within person JOURNAL | Bots\A360_Framework\Child Bots\xx - Write a NOTE within person JOURNAL |      32 |          13 |         14 | True             | False   | True    | True       | False     | False        |                0.243167 |
 
 **Overall complexity**
 **0.5935**
