@@ -6,6 +6,7 @@ import pandas as pd
 class BotAnalyzer_A360:
     """
     Once bots and dependencies are exported we proceed to analyze
+    path: Path of the task bot file
     """
 
     def __init__(self, path):
@@ -17,6 +18,49 @@ class BotAnalyzer_A360:
         # This one also is counting disabled lines! (for support it might be neccesary to understand these too,
         # so I keep counting)
         return len(self._get_ids(self._bot["nodes"]))
+
+    def get_if_error_handling(self):
+        commands = self._get_commands()
+        if "try" in commands:
+            return True
+        else:
+            return False
+
+    def get_if_loops(self):
+        commands = self._get_commands()
+        if "loop.commands.start" in commands:
+            return True
+        else:
+            return False
+
+    def get_if_steps(self):
+        commands = self._get_commands()
+        if "step" in commands:
+            return True
+        else:
+            return False
+
+    def get_if_comments(self):
+        commands = self._get_commands()
+        if "Comment" in commands:
+            return True
+        else:
+            return False
+
+    def get_if_scripts(self):
+        commands = self._get_commands()
+        if any(x in commands for x in
+               ["vbscript.commands.openScript", "python.commands.openScript", "javascript.commands.openScript"]):
+            return True
+        else:
+            return False
+
+    def get_if_notification_emails(self):
+        commands = self._get_commands()
+        if "sendMail" in commands:
+            return True
+        else:
+            return False
 
     def get_bot_name(self):
         return os.path.basename(self.path)
@@ -72,7 +116,7 @@ class BotAnalyzer_A360:
 
         for obj in json_array:
             if isinstance(obj, dict):
-                ids.append(obj.get('uid'))
+                ids.append({'uid': obj.get('uid'), 'command': obj.get('commandName')})
                 children = obj.get('children', None)
                 branches = obj.get('branches', None)
                 if children:
@@ -82,3 +126,10 @@ class BotAnalyzer_A360:
             elif isinstance(obj, list):
                 ids.extend(self._get_ids(obj))
         return ids
+
+    def _get_commands(self):
+        ids_dict = self._get_ids(self._bot["nodes"])
+        commands = []
+        for item in ids_dict:
+            commands.append(item["command"])
+        return commands

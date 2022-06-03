@@ -7,17 +7,13 @@ about the bot and all its dependencies.
 For example, inserting the bot id from this url https://aa1-app2019.iacc.epam.com/#/bots/repository/public/taskbots/3669/view
 we obtain: 
 
-| Bot                                     |   Lines |   Variables |   Packages |
-|:----------------------------------------|--------:|------------:|-----------:|
-| Main - Signium                          |     200 |          27 |         18 |
-| xx - SAP open and login                 |      73 |          19 |         42 |
-| Create Bot Folders                      |      60 |          15 |         26 |
-| Process Item                            |      58 |          12 |         11 |
-| Read Config File                        |      48 |           7 |         12 |
-| End process                             |      46 |          15 |         18 |
-| Init                                    |      45 |           7 |         14 |
-| Delete Old Files                        |      43 |           8 |         16 |
-| xx - Write a NOTE within person JOURNAL |      33 |          13 |         14 |
+| Bot                 | Path                                                                  |   Lines |   Variables |   Packages |
+|:--------------------|:----------------------------------------------------------------------|--------:|------------:|-----------:|
+| Get_Data_From_Radar | Bots\Opportunities and Projects report automation\Get_Data_From_Radar |     131 |          31 |         13 |
+| Tests               | Bots\Opportunities and Projects report automation\Tests               |       7 |           7 |          8 |
+| Send_Email          | Bots\Opportunities and Projects report automation\Send_Email          |       6 |           8 |          5 |
+| Init                | Bots\Opportunities and Projects report automation\Init                |       6 |           4 |          6 |
+| Main_Radar          | Bots\Opportunities and Projects report automation\Main_Radar          |       4 |           3 |          1 |
 
 # Dependencies
 This code has been developed using Python 3.10.1. Requirements are located in the requirements.txt file
