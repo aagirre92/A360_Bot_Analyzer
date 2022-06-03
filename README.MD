@@ -7,7 +7,7 @@ about the bot and all its dependencies as well as each bot complexity estimation
 
 On top of that this program returns an overall process complexity estimation, taking into consideration the number of bots involved
 
-This program gives a first picture of a process. However more variables shall be considered to estimate the complexity, these are:
+This program gives a first picture of a process. **However, more variables shall be considered to estimate the complexity, these are:**
 
 * Does the process use any triggers?
 * Does the process use Workload Management (queues)
@@ -16,7 +16,7 @@ This program gives a first picture of a process. However more variables shall be
 * In how many VMs is this process executed?
 * If process is attended (AARI Desktop/Web) then another approach shall be taken
 
-For example, inserting the bot id from this url https://aa1-app2019.iacc.epam.com/#/bots/repository/public/taskbots/3669/view
+> For example, inserting the bot id from this url  https://aa1-app2019.iacc.epam.com/#/bots/repository/public/taskbots/3669/view
 we obtain: 
 
 | Bot                                     | Path                                                                   |   Lines |   Variables |   Packages | Error Handling   | Loops   | Steps   | Comments   | Scripts   | Email send   |   Complexity |
@@ -36,8 +36,15 @@ we obtain:
 
 # Usage
 As mentioned for executing this program you will need:
-
-* A360 Control Room user with appropriate permissions for exporting bots
+* **config.py** file is used for storing the sensitive variables such as username, password/apikey and control room url
+* A360 Control Room user with appropriate permissions for exporting bots. At least user should have these permissions:
+  * BOTS
+    * View my bots
+      * Export Bots
+  * API
+    * Generate API-Key
+  * Permission to view content of public Bots folder (or specific folders within)
+  
 * A360 Control Room username and password/apiKey (it works with both)
 * Access to the Control Room so that you can get the bot id from the Public folder
 * You only need to point to the Master/Main bot. All dependencies are automatically detected and added
