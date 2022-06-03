@@ -44,7 +44,7 @@ def complexity_formula(row):
     else:
         x_error_handling = 0
 
-    if row["Loops"]:
+    if row["Loops"] > 3:
         x_loops = COEF_LOOPS
 
     else:

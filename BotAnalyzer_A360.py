@@ -1,5 +1,6 @@
 import os
 import json
+from collections import Counter
 import pandas as pd
 
 
@@ -26,12 +27,14 @@ class BotAnalyzer_A360:
         else:
             return False
 
-    def get_if_loops(self):
+    def get_number_of_loops(self):
         commands = self._get_commands()
-        if "loop.commands.start" in commands:
-            return True
+        commands_count = Counter(commands)
+        loop_counter = commands_count.get("loop.commands.start")
+        if not loop_counter:
+            return 0
         else:
-            return False
+            return loop_counter
 
     def get_if_steps(self):
         commands = self._get_commands()

@@ -168,7 +168,7 @@ class ReportGenerator:
             bot_variable_number.append(analyze_bot.get_number_of_variables())
             bot_packages_number.append(analyze_bot.get_number_of_packages())
             bot_error_handling.append(analyze_bot.get_if_error_handling())
-            bot_loops.append(analyze_bot.get_if_loops())
+            bot_loops.append(analyze_bot.get_number_of_loops())
             bot_steps.append(analyze_bot.get_if_steps())
             bot_comments.append(analyze_bot.get_if_comments())
             bot_scripts.append(analyze_bot.get_if_scripts())
