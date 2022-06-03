@@ -18,7 +18,8 @@ class BotAnalyzer_A360:
     def get_count_total_lines(self):
         # This one also is counting disabled lines! (for support it might be neccesary to understand these too,
         # so I keep counting)
-        return len(self._get_ids(self._bot["nodes"]))
+        commands = self._get_commands()
+        return len(commands)
 
     def get_if_error_handling(self):
         commands = self._get_commands()
@@ -119,7 +120,7 @@ class BotAnalyzer_A360:
 
         for obj in json_array:
             if isinstance(obj, dict):
-                ids.append({'uid': obj.get('uid'), 'command': obj.get('commandName')})
+                ids.append({'uid': obj.get('uid'), 'command': obj.get('commandName'), 'disabled': obj.get('disabled')})
                 children = obj.get('children', None)
                 branches = obj.get('branches', None)
                 if children:
@@ -131,8 +132,13 @@ class BotAnalyzer_A360:
         return ids
 
     def _get_commands(self):
+        """
+        Only return commands that are NOT disabled!!!!!
+        :return: List
+        """
         ids_dict = self._get_ids(self._bot["nodes"])
         commands = []
         for item in ids_dict:
-            commands.append(item["command"])
+            if not item['disabled']:
+                commands.append(item["command"])
         return commands
