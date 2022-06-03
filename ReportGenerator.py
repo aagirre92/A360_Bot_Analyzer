@@ -1,4 +1,5 @@
 import os
+import re
 import requests
 from datetime import datetime
 import json
@@ -6,20 +7,29 @@ import tempfile
 import zipfile
 import pandas as pd
 
-
 from BotAnalyzer_A360 import BotAnalyzer_A360
+from functions import complexity_formula
 
 
 class ReportGenerator:
+    """
+    This class generates a report taking as input the A360 CR credentials (user+password OR apikey) and the bot id
+    """
 
-    def __init__(self, control_room_url, user, api_key):
-
-        self.user = user
-
-        self.api_key = api_key
+    def __init__(self, control_room_url, username, password=None, api_key=None):
+        assert control_room_url, 'You must provide a valid A360 CR URL'
+        assert username, 'You must provide a username'
+        assert password or api_key, "You must provide either user's password or api_key"
 
         if control_room_url[-1] == "/":
             self.control_room_url = control_room_url[:-1]
+
+        self.username = username
+
+        if password:
+            self.password = password
+        if api_key:
+            self.api_key = api_key
 
         self._token = self._get_token()
 
@@ -74,10 +84,17 @@ class ReportGenerator:
             "Content-Type": "application/json"
         }
 
-        payload = {
-            "username": self.user,
-            "apiKey": self.api_key
-        }
+        if hasattr(self, 'api_key'):
+            payload = {
+                "username": self.username,
+                "apiKey": self.api_key
+            }
+
+        if hasattr(self, 'password'):
+            payload = {
+                "username": self.username,
+                "password": self.password
+            }
 
         r = requests.post(uri, data=json.dumps(payload), headers=headers, verify=False)
 
@@ -125,21 +142,55 @@ class ReportGenerator:
         print(f"File downloaded and saved in {path}")
 
     def _generate_overall_report(self, path, task_bot_paths):
+
+        bot_path_list = []
         bot_name_list = []
         bot_lines = []
         bot_variable_number = []
         bot_packages_number = []
+        bot_error_handling = []
+        bot_loops = []
+        bot_steps = []
+        bot_comments = []
+        bot_scripts = []
+        bot_send_emails = []
+
         for file in task_bot_paths:
+            index = re.search("\\Bots", file).start() - 1
+
+            bot_path_list.append(file[index:])
+
             # Aquí entra en juego la segunda class (!!)
             analyze_bot = BotAnalyzer_A360(file)
+
             bot_name_list.append(analyze_bot.get_bot_name())
             bot_lines.append(analyze_bot.get_count_total_lines())
             bot_variable_number.append(analyze_bot.get_number_of_variables())
             bot_packages_number.append(analyze_bot.get_number_of_packages())
+            bot_error_handling.append(analyze_bot.get_if_error_handling())
+            bot_loops.append(analyze_bot.get_if_loops())
+            bot_steps.append(analyze_bot.get_if_steps())
+            bot_comments.append(analyze_bot.get_if_comments())
+            bot_scripts.append(analyze_bot.get_if_scripts())
+            bot_send_emails.append(analyze_bot.get_if_notification_emails())
 
-        df_overall_report = pd.DataFrame({"Bot": bot_name_list, "Lines": bot_lines, "Variables": bot_variable_number,
-                                          "Packages": bot_packages_number})
+        df_overall_report = pd.DataFrame({"Bot": bot_name_list,
+                                          "Path": bot_path_list,
+                                          "Lines": bot_lines,
+                                          "Variables": bot_variable_number,
+                                          "Packages": bot_packages_number,
+                                          "Error Handling": bot_error_handling,
+                                          "Loops": bot_loops,
+                                          "Steps": bot_steps,
+                                          "Comments": bot_comments,
+                                          "Scripts": bot_scripts,
+                                          "Email send": bot_send_emails
+                                          })
         df_overall_report = df_overall_report.sort_values(by=['Lines'], ascending=False).reset_index(drop=True)
+
+        df_overall_report["Complexity Estimation"] = df_overall_report.apply(lambda row: complexity_formula(row),
+                                                                             axis=1)
+
         return df_overall_report
 
     @staticmethod
