@@ -62,17 +62,26 @@ class ReportGenerator:
         while status != "COMPLETED":
             status = self._check_bot_export_status(export_id)
 
-        # reports_dict = {}
+        reports_dict = {}
 
         with tempfile.TemporaryDirectory() as temp_dir:
             self._download_file(export_id, temp_dir)
-            task_bot_paths = ReportGenerator.get_task_bot_paths(os.path.join(temp_dir, "manifest.json"))
 
-            df_overall_report = self._generate_overall_report(temp_dir, task_bot_paths)
+            task_bot_paths = ReportGenerator.get_task_bot_paths(os.path.join(temp_dir, "manifest.json"))  # list
 
-            # reports_dict["overall_report"] = df_overall_report
+            other_dependencies_paths = ReportGenerator.get_file_dependency_paths(
+                os.path.join(temp_dir, "manifest.json"))  # dict
 
-            return df_overall_report
+            df_bots_overall_report = self._generate_overall_report(task_bot_paths)  # ONLY TASK BOTS
+
+            reports_dict["bots"] = df_bots_overall_report
+
+            df_dependencies_report = self._generate_file_dependency_report(other_dependencies_paths)  # EVERY FILE
+            # BUT TASK BOTS
+
+            reports_dict["other_dependencies"] = df_dependencies_report
+
+            return reports_dict
 
     # PRIVATE METHODS
 
@@ -139,9 +148,9 @@ class ReportGenerator:
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(path)
 
-        print(f"File downloaded and saved in {path}")
+        # print(f"File downloaded and saved in {path}")
 
-    def _generate_overall_report(self, path, task_bot_paths):
+    def _generate_overall_report(self, task_bot_paths):
 
         bot_path_list = []
         bot_name_list = []
@@ -193,6 +202,30 @@ class ReportGenerator:
 
         return df_overall_report
 
+    def _generate_file_dependency_report(self, other_dependencies_paths):
+
+        file_path_list = []
+        file_name_list = []
+        file_content_type = []
+
+        for file in other_dependencies_paths:
+            index = re.search("\\Bots", file["path"]).start() - 1
+
+            file_path_list.append(file["path"][index:])
+
+            file_name_list.append(file["path"].split("\\")[-1])
+
+            file_content_type.append(file["mimeType"])
+
+        df_dependencies_report = pd.DataFrame({"Name": file_name_list,
+                                               "Path": file_path_list,
+                                               "Content Type": file_content_type
+                                               })
+        df_dependencies_report = df_dependencies_report.sort_values(by=['Content Type'], ascending=False).reset_index(
+            drop=True)
+
+        return df_dependencies_report
+
     @staticmethod
     def get_task_bot_paths(manifest_json_path):
         # RETURN LIST WITH ABSOLUTE PATHS TO TASK BOT FILES
@@ -205,3 +238,17 @@ class ReportGenerator:
                 task_bot_paths.append(os.path.join(os.path.dirname(manifest_json_path), file["path"]))
 
         return task_bot_paths
+
+    @staticmethod
+    def get_file_dependency_paths(manifest_json_path):
+        # RETURN LIST WITH ABSOLUTE PATHS TO ALL DEPENDENCIES BUT TASK BOTS
+        with open(manifest_json_path) as f:
+            manifest_json = json.load(f)
+
+        other_dependencies_path = []
+        for file in manifest_json["files"]:
+            if file["contentType"] != "application/vnd.aa.taskbot" and not file["metadataForFile"]:
+                other_dependencies_path.append({"path": os.path.join(os.path.dirname(manifest_json_path), file["path"]),
+                                                "mimeType": file["contentType"]})
+
+        return other_dependencies_path
