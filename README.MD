@@ -54,7 +54,8 @@ As mentioned for executing this program you will need:
     * Generate API-Key
   * Permission to view content of public Bots folder (or specific folders within)
   
-* A360 Control Room username and password/apiKey (it works with both)
+* A360 Control Room username and password/apiKey (it works with both, but **password is not recommended**)
+  * **Be careful**: For a Control Room that is deployed on Cloud and has SAML authentication enabled, generate the web token with your username and apikey
 * Access to the Control Room so that you can get the bot id from the Public folder
 * You only need to point to the Master/Main bot. All dependencies are automatically detected and added
 
