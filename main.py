@@ -7,7 +7,7 @@ if __name__ == '__main__':
     cr_instance = ReportGenerator(control_room_url=cfg.cr_url, username=cfg.username_support_user,
                                   api_key=cfg.apiKey_support_user)
 
-    df_dict = cr_instance.get_bot_full_reports("2973")
+    df_dict = cr_instance.get_bot_full_reports("3669")
 
     # Save dataframes as csv:
     # 1) Task bots
