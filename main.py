@@ -15,6 +15,7 @@ if __name__ == '__main__':
 
     # 2) Other dependencies (scripts, config files, etc.)
     df_dict["other_dependencies"].to_csv("output/ProcessName_other_dependencies.csv", index=False, encoding="utf-8")
+
     overall_complexity = process_complexity(df_dict["bots"])
 
     print("Overall complexity: " + str(overall_complexity))

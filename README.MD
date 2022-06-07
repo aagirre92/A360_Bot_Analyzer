@@ -19,7 +19,7 @@ This program gives a first picture of a process. **However, more variables shall
 > For example, inserting the bot id from this url  https://aa1-app2019.iacc.epam.com/#/bots/repository/public/taskbots/3669/view
 we obtain: 
 >> **NOTE THAT ONLY ACTIVE ACTIONS ARE COUNTED (PROGRAM DOES NOT TAKE INTO CONSIDERATION DISABLED ACTIONS)**
-
+## Task bots
 | Bot                                     | Path                                                                   |   Lines |   Variables |   Packages | Error Handling   |   Loops | Steps   | Comments   | Scripts   | Email send   |   Complexity Estimation |
 |:----------------------------------------|:-----------------------------------------------------------------------|--------:|------------:|-----------:|:-----------------|--------:|:--------|:-----------|:----------|:-------------|------------------------:|
 | Main - Signium                          | Bots\A360_Framework\Main\Main - Signium                                |     198 |          27 |         18 | True             |       3 | True    | True       | False     | True         |                0.5775   |
@@ -34,6 +34,14 @@ we obtain:
 
 **Overall complexity**
 **0.5935**
+
+## Other dependencies but task bots
+
+| Name                         | Path                                                             | Content Type             |
+|:-----------------------------|:-----------------------------------------------------------------|:-------------------------|
+| config.xml                   | Bots\A360_Framework\Files\config.xml                             | text/xml                 |
+| readme.txt                   | Bots\A360_Framework\readme.txt                                   | text/plain               |
+| Procedures_and_Functions.vbs | Bots\A360_Framework\SAP VBS Scripts\Procedures_and_Functions.vbs | application/octet-stream |
 
 # Usage
 As mentioned for executing this program you will need:
