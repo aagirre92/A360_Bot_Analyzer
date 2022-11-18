@@ -1,4 +1,5 @@
 import os
+import io
 import json
 from collections import Counter
 import pandas as pd
@@ -12,7 +13,7 @@ class BotAnalyzer_A360:
 
     def __init__(self, path):
         self.path = path
-        with open(path, encoding="utf8") as f:
+        with io.open(path, 'r', encoding="utf-8-sig") as f: # https://stackoverflow.com/questions/13156395/python-load-json-file-with-utf-8-bom-header
             self._bot = json.load(f)
 
     def get_count_total_lines(self):
