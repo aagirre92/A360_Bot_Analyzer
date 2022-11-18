@@ -114,7 +114,23 @@ password = "<PASSWORD>"
 * You should have **git installed** on the machine so that you can clone this repository to your local device (**this is a private repository, you will need a token issued by the author to clone it**)
 * You should have **Python installed** in your machine (this program has been deployed with Python 3.10.1 and tested with 3.10.5)
 * You should install all the requirements that are located in **requirements.txt** file
-* Once you cloned the repo and installed all the dependencies **you must manually create a config.py file with the following variables**:
+* Once you cloned the repo and installed all the dependencies **you must manually create a config.py file**. Folder 
+structure shall look like this:
+```
+Project Folder:
+|   .gitignore
+|   BotAnalyzer_A360.py
+|   config.py
+|   functions.py
+|   main.py
+|   main_test.py
+|   README.MD
+|   ReportGenerator.py
+|   requirements.txt
+|   tests.py
+          
++---/output
+```
 
 ```console
 pip install -r requirements.txt
