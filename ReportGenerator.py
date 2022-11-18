@@ -81,6 +81,14 @@ class ReportGenerator:
 
             reports_dict["other_dependencies"] = df_dependencies_report
 
+            df_variables_report = self._generate_variable_report(task_bot_paths)
+
+            reports_dict["variable_list"] = df_variables_report
+
+            df_packages_report = self._generate_packages_report(task_bot_paths)
+
+            reports_dict["packages"] = df_packages_report
+
             return reports_dict
 
     # PRIVATE METHODS
@@ -225,6 +233,26 @@ class ReportGenerator:
             drop=True)
 
         return df_dependencies_report
+
+    def _generate_variable_report(self, task_bot_paths):
+        df_variable_list = pd.DataFrame(
+            {"Bot_Name": [], "Name": [], "Type": [], "Description": [], "Input": [],
+             "Output": []})
+
+        for file in task_bot_paths:
+            analyze_bot = BotAnalyzer_A360(file)
+            df_variable_list = pd.concat([df_variable_list, analyze_bot.variable_df()])
+        df_variable_list = df_variable_list.drop_duplicates()
+        return df_variable_list
+
+    def _generate_packages_report(self, task_bot_paths):
+        df_packages = pd.DataFrame(
+            {"bot_name": [], "package_name": [], "package_version": []})
+        for file in task_bot_paths:
+            analyze_bot = BotAnalyzer_A360(file)
+            df_packages = pd.concat([df_packages, analyze_bot.packages_df()])
+        df_packages = df_packages.drop_duplicates()
+        return df_packages
 
     @staticmethod
     def get_task_bot_paths(manifest_json_path):
