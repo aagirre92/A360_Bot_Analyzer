@@ -12,8 +12,11 @@ class BotAnalyzer_A360:
     """
 
     def __init__(self, path):
+        # I've encountered some decoding issues using utf-8. Solved (see resources below)
+        # https://www.howtosolutions.net/2019/04/python-fixing-unexpected-utf-8-bom-error-when-loading-json-data/
+        # https://stackoverflow.com/questions/13156395/python-load-json-file-with-utf-8-bom-header
         self.path = path
-        with io.open(path, 'r', encoding="utf-8-sig") as f: # https://stackoverflow.com/questions/13156395/python-load-json-file-with-utf-8-bom-header
+        with io.open(path, 'r', encoding="utf-8-sig") as f:
             self._bot = json.load(f)
 
     def get_count_total_lines(self):
