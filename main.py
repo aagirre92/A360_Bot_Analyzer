@@ -4,7 +4,8 @@ from functions import process_complexity
 import config as cfg
 
 if __name__ == '__main__':
-    DESCRIPTION = "This program will create two csv files within local output folder containing the task bot files " \
+    DESCRIPTION = "This program will create some csv files within local output folder containing information about task " \
+                  "bots " \ 
                   "and other dependency files. It is necessary that config.py file exists and contains the following " \
                   "variables:\n1)cr_url\n2)username\n3)apiKey OR password. Default method of authentication is " \
                   "via api key"
@@ -43,6 +44,13 @@ if __name__ == '__main__':
 
         overall_complexity = process_complexity(df_dict["bots"])
 
+        # 3) Variable csv
+        variables_file = f"output/{args.process_name}_variables.csv"
+        df_dict["variable_list"].to_csv(variables_file, index=False, encoding="utf-8")
+
+        # 4) Packages csv
+        packages_file = f"output/{args.process_name}_packages.csv"
+        df_dict["packages"].to_csv(packages_file, index=False, encoding="utf-8")
+
         print("Overall complexity: " + str(overall_complexity))
-        print(f"Task bots file saved in output folder as: {args.process_name}_bots.csv")
-        print(f"Other dependencies file saved in output folder as: {args.process_name}_other_dependencies.csv")
+        print("Output csv files saved under outputs folder")

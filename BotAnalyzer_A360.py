@@ -1,4 +1,5 @@
 import os
+import io
 import json
 from collections import Counter
 import pandas as pd
@@ -11,8 +12,11 @@ class BotAnalyzer_A360:
     """
 
     def __init__(self, path):
+        # I've encountered some decoding issues using utf-8. Solved (see resources below)
+        # https://www.howtosolutions.net/2019/04/python-fixing-unexpected-utf-8-bom-error-when-loading-json-data/
+        # https://stackoverflow.com/questions/13156395/python-load-json-file-with-utf-8-bom-header
         self.path = path
-        with open(path, encoding="utf8") as f:
+        with io.open(path, 'r', encoding="utf-8-sig") as f:
             self._bot = json.load(f)
 
     def get_count_total_lines(self):
@@ -77,16 +81,39 @@ class BotAnalyzer_A360:
     def get_number_of_packages(self):
         return len(self._bot["packages"])
 
+    def packages_df(self):
+        package_name_list = []
+        package_version_list = []
+        bot_name_list = []
+        bot_name = os.path.basename(self.path)
+        for package in self._bot["packages"]:
+            bot_name_list.append(bot_name)
+            package_name_list.append(package["name"])
+            package_version_list.append(package["version"])
+        df_packages = pd.DataFrame(
+            {"bot_name": bot_name_list, "package_name": package_name_list, "package_version": package_version_list})
+
+        return df_packages
+
     def variable_df(self):
+        bot_name = os.path.basename(self.path)
+        bot_name_column = []
         variable_name = []
         variable_type = []
         variable_description = []
         variable_input = []
         variable_output = []
         for variable in self._bot["variables"]:
+            # Variable name and type are always defined
+            bot_name_column.append(bot_name)
             variable_name.append(variable["name"])
             variable_type.append(variable["type"])
-            variable_description.append(variable["description"])
+            # 'description' key might or might not be there
+            if "description" in variable:
+                variable_description.append(variable["description"])
+            else:
+                variable_description.append("")
+            # Same for input/output
             if variable["input"]:
                 variable_input.append("True")
             else:
@@ -97,7 +124,8 @@ class BotAnalyzer_A360:
                 variable_output.append("False")
 
         df_variables = pd.DataFrame(
-            {"Name": variable_name, "Type": variable_type, "Description": variable_description, "Input": variable_input,
+            {"Bot_Name": bot_name_column, "Name": variable_name, "Type": variable_type,
+             "Description": variable_description, "Input": variable_input,
              "Output": variable_output})
 
         return df_variables
