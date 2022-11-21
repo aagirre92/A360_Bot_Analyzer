@@ -87,6 +87,7 @@ we obtain:
 
 # Usage
 As mentioned for executing this program you will need:
+* **Create "output" folder within this project**. This is where all csv files will be saved
 * **config.py** file is used for storing the sensitive variables such as username, password/apikey and control room url
 ```python
 # This is an example of a config.py file
