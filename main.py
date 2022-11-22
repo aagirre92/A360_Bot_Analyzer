@@ -6,7 +6,7 @@ import config as cfg
 
 if __name__ == '__main__':
     DESCRIPTION = "This program will create some csv files within local output folder containing information about task " \
-                  "bots " \ 
+                  "bots " \
                   "and other dependency files. It is necessary that config.py file exists and contains the following " \
                   "variables:\n1)cr_url\n2)username\n3)apiKey OR password. Default method of authentication is " \
                   "via api key"

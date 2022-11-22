@@ -4,7 +4,7 @@
 **This program is oriented ONLY for unattended processes**
 With the aim of estimating the complexity of a process and get the information about bots and dependencies, this program
 takes as input the bot id of a bot (**presumably master bot within public folder**) and returns several csv files (these files
-are saved under the projects' /output folder):
+are saved under the projects' /output folder, which script creates if not present):
 
 * **<process_name>_bots.csv**: This file contains information about bots and sub-bots of the master bot selected. Format is
 the following:
@@ -87,7 +87,6 @@ we obtain:
 
 # Usage
 As mentioned for executing this program you will need:
-* **Create "output" folder within this project**. This is where all csv files will be saved
 * **config.py** file is used for storing the sensitive variables such as username, password/apikey and control room url
 ```python
 # This is an example of a config.py file
