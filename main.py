@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from ReportGenerator import ReportGenerator
 from functions import process_complexity
+from functions import create_output_folder
 import config as cfg
 
 if __name__ == '__main__':
@@ -30,7 +31,10 @@ if __name__ == '__main__':
             print("Api key authentication")
             cr_instance = ReportGenerator(control_room_url=cfg.cr_url, username=cfg.username,
                                           api_key=cfg.apiKey)
+        # Create output folder if not present
+        create_output_folder()
 
+        # Get dataframe list with all reports
         df_dict = cr_instance.get_bot_full_reports(str(args.bot_id))
 
         # Save dataframes as csv:

@@ -1,3 +1,10 @@
+from pathlib import Path
+
+
+def create_output_folder():
+    Path("output").mkdir(parents=True, exist_ok=True)
+
+
 def complexity_formula(row):
     """
     This function is used for calculating the complexity of each task bot
@@ -91,3 +98,7 @@ def process_complexity(df):
         overall_complexity = complexity_max
 
     return overall_complexity
+
+
+if __name__ == '__main__':
+    create_output_folder()
