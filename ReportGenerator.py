@@ -23,6 +23,9 @@ class ReportGenerator:
 
         if control_room_url[-1] == "/":
             self.control_room_url = control_room_url[:-1]
+        
+        else:
+            self.control_room_url = control_room_url
 
         self.username = username
 
