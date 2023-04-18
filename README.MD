@@ -162,6 +162,9 @@ This code has been developed using Python 3.10.1. Requirements are located in th
 # Author
 Andoni Aguirre Aranguren
 
+# License
+This project is licensed under the GNU Public License
+
 # Contact
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/aaguirrearanguren)
 [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/aagirre92)
